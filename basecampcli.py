@@ -78,6 +78,9 @@ if __name__ == '__main__':
             elif(args.notify == 1):
                 subscribers = api.getSubscribers(args.projectid)
                 api.postMessage(args.projectid, args.subject, content, subscribers=subscribers)
+            else:
+                print('Invalid value \'{}\' for subscriber notification parameter'.format(str(args.notify)), file=sys.stderr)
+                sys.exit(1)
         sys.exit(0)
     except Exception, e:
         print(e.message, file=sys.stderr)
