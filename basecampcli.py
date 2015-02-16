@@ -18,7 +18,7 @@ class BasecampApi(object):
         self.headers = {
             'Content-Type': 'application/json',
             'Accept': 'application/json',
-            'User-Agent': 'BasecampApi ({0})'.format(username),
+            'User-Agent': 'BasecampApi ({})'.format(username),
             'Authorization': 'Basic %s' % base64.encodestring('%s:%s' % (username, password))
         }
 
