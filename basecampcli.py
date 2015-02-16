@@ -70,7 +70,7 @@ if __name__ == '__main__':
         api = BasecampApi(args.accountid, args.username, args.password)
         print('Enter the message content, end EOT (^D or CTRL + D)')
         content = sys.stdin.read()
-        if(args.todolistid != ""):
+        if(args.todolistid):
             api.postTodo(args.projectid, args.todolistid, content)
         else:
             if(args.notify == 0):
