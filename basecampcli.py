@@ -67,15 +67,15 @@ if __name__ == '__main__':
         parser.add_argument('-p', '--password', help='Password for the user', required=True)
         parser.add_argument('-i', '--projectid', help='ID of the project to post to', required=True)
         parser.add_argument('-t', '--todolistid', help='ID of the todolist to post to', required=False)
-        parser.add_argument('-s', '--subject', help='Message subject', required=True)
-        parser.add_argument('-n', '--notify', help='0: nobody, 1: all subscribers (defaults to 0)', default=0, type=int)
+        parser.add_argument('-s', '--subject', help='Message subject (omittable for todos)', required=False)
+        parser.add_argument('-n', '--notify', help='0: nobody, 1: all subscribers (defaults to 0, omittable for todos)', default=0, type=int)
         args = parser.parse_args()
         api = BasecampApi(args.accountid, args.username, args.password)
         print('Enter the message content, end EOT (^D or CTRL + D)')
         content = sys.stdin.read()
         if(args.todolistid):
             api.postTodo(args.projectid, args.todolistid, content)
-        else:
+        elif(args.subject):
             if(args.notify == 0):
                 api.postMessage(args.projectid, args.subject, content)
             elif(args.notify == 1):
@@ -84,6 +84,9 @@ if __name__ == '__main__':
             else:
                 print('Invalid value \'{}\' for subscriber notification parameter'.format(str(args.notify)), file=sys.stderr)
                 sys.exit(1)
+        else:
+            print('If you do no specify a todolist ID and want to post a message, you must provide a subject', file=sys.stderr)
+            sys.exit(1)
         sys.exit(0)
     except Exception, e:
         print(e.message, file=sys.stderr)
