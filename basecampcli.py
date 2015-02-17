@@ -57,8 +57,11 @@ if __name__ == '__main__':
     try:
         parser = argparse.ArgumentParser(
             description='POST to Basecamp\n\n'
-            'POST either a message to a project or a todo to a todolist.\n'
-            'To POST a todo, simply use the optional argument -t (--todolistid).')
+            'POST either a message to a project or a todo to a project\'s todolist.\n\n'
+            'Examples:\n'
+            '\tbasecampcli.py -a 5668214 -u foo@bar.org -p 123many -i 2557963 -t 54771214           # todo\n'
+            '\tbasecampcli.py -a 5668214 -u foo@bar.org -p 123many -i 2557963 -s "My subject" -n 1  # message\n',
+            formatter_class=argparse.RawTextHelpFormatter)
         parser.add_argument('-a', '--accountid', help='ID of the Basecamp account', required=True)
         parser.add_argument('-u', '--username', help='Username (will be an email address)', required=True)
         parser.add_argument('-p', '--password', help='Password for the user', required=True)
